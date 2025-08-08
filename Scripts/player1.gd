@@ -5,6 +5,10 @@ var JUMP_VELOCITY = -300.0
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
+var DEFAULT_JUMP_VELOCITY := -300.0
+
+func reset_JUMP_VELOCITY():
+	JUMP_VELOCITY = DEFAULT_JUMP_VELOCITY
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -42,6 +46,3 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 
 	move_and_slide()
-	
-func reset_JUMP_VELOCITY():
-	JUMP_VELOCITY = -300.0

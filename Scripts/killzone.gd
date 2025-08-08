@@ -4,6 +4,9 @@ extends Area2D
 @onready var death_text: Label
 @onready var animation_player = $AnimationPlayer
 
+
+
+
 func _ready() -> void:
 	await get_tree().process_frame
 	death_text = get_tree().current_scene.get_node("CanvasLayer2/DeathText") 
@@ -26,4 +29,6 @@ func _on_body_entered(body: Node2D) -> void:
 func _on_timer_timeout() -> void:
 	Engine.time_scale = 1
 	GameState.reset()
-	get_tree().reload_current_scene()
+	Global.score = 0
+	get_tree().change_scene_to_file("res://Scenes/game.tscn")
+	
