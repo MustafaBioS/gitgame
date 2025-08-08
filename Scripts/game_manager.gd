@@ -1,6 +1,6 @@
 extends Node
 
-@onready var score_text: Label = $"/root/Game/CanvasLayer/ScoreText"
+@onready var score_text: Label = $"/root/Game/CanvasLayer2/ScoreText"
 var score = 0
 
 func _ready():

@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://bb168xtijdr2u"]
+[gd_scene load_steps=46 format=3 uid="uid://bb168xtijdr2u"]
 
 [ext_resource type="PackedScene" uid="uid://7nkx730b3527" path="res://Scenes/player.tscn" id="1_ebmjs"]
 [ext_resource type="Texture2D" uid="uid://crceyhmdp817v" path="res://Assets/sprites/world_tileset.png" id="1_qxrlw"]
@@ -6,9 +6,9 @@
 [ext_resource type="Script" uid="uid://3m01fi25x442" path="res://Scripts/trigger.gd" id="3_v158k"]
 [ext_resource type="PackedScene" uid="uid://bwsurxwpduu68" path="res://Scenes/platform.tscn" id="3_wrm1d"]
 [ext_resource type="PackedScene" uid="uid://c06xf2jdg6cdg" path="res://Scenes/coin.tscn" id="4_3dryh"]
-[ext_resource type="Script" uid="uid://cmuypiu35ebr5" path="res://Scripts/killzone.gd" id="5_h4fw4"]
 [ext_resource type="PackedScene" uid="uid://c1snn52k2182i" path="res://Scenes/killzone.tscn" id="5_wowpa"]
 [ext_resource type="PackedScene" uid="uid://dv78tx51kny7g" path="res://Scenes/trigger.tscn" id="6_1l0tm"]
+[ext_resource type="PackedScene" uid="uid://b7gjivkp6r52h" path="res://Scenes/fake_coin.tscn" id="7_mg4q0"]
 [ext_resource type="FontFile" uid="uid://b6ij1elvcxk6h" path="res://Assets/fonts/PixelOperator8-Bold.ttf" id="7_rfjv2"]
 [ext_resource type="Script" uid="uid://dxom8olgq0mrf" path="res://Scripts/player1.gd" id="8_h4fw4"]
 [ext_resource type="Texture2D" uid="uid://7n7w5ayrvu4g" path="res://Assets/fourSeasonsPlatformer_ [tileset, version 2.0]/midground_/dungeon_.png" id="9_iivbl"]
@@ -79,40 +79,6 @@ _data = {
 &"RESET": SubResource("Animation_wrm1d")
 }
 
-[sub_resource type="Animation" id="Animation_wowpa"]
-resource_name = "Death..."
-length = 3.0
-loop_mode = 2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(),
-"transitions": PackedFloat32Array(),
-"update": 0,
-"values": []
-}
-
-[sub_resource type="Animation" id="Animation_h4fw4"]
-resource_name = "FakePlatform"
-length = 3.0
-loop_mode = 2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(-143, 35), Vector2(-316, 35)]
-}
-
 [sub_resource type="Animation" id="Animation_o5yvi"]
 resource_name = "MoveUp"
 length = 3.0
@@ -144,17 +110,60 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector2(770, 3)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Platform 4:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1457, -205)]
+}
+
+[sub_resource type="Animation" id="Animation_7t8sx"]
+resource_name = "Death..."
+length = 4.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-143, 35), Vector2(-432, 35)]
+}
+
+[sub_resource type="Animation" id="Animation_mg4q0"]
+resource_name = "down"
+length = 2.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Platform 4:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1457, -205), Vector2(1457, 35)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1l0tm"]
 _data = {
-&"Death...": SubResource("Animation_wowpa"),
-&"FakePlatform": SubResource("Animation_h4fw4"),
+&"Death...": SubResource("Animation_7t8sx"),
 &"MoveUp": SubResource("Animation_o5yvi"),
-&"RESET": SubResource("Animation_i6g32")
+&"RESET": SubResource("Animation_i6g32"),
+&"down": SubResource("Animation_mg4q0")
 }
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_h4fw4"]
-radius = 7.0
 
 [sub_resource type="GDScript" id="GDScript_7t8sx"]
 script/source = "extends Label
@@ -3759,16 +3768,16 @@ script = ExtResource("3_v158k")
 libraries = {
 &"": SubResource("AnimationLibrary_1l0tm")
 }
-autoplay = "FakePlatform"
+autoplay = "Death..."
 
 [node name="Platform 4" parent="Platforms" instance=ExtResource("3_wrm1d")]
-position = Vector2(770, 3)
+position = Vector2(1457, -205)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Platforms/Platform 4"]
 libraries = {
 &"": SubResource("AnimationLibrary_1l0tm")
 }
-autoplay = "MoveUp"
+autoplay = "down"
 
 [node name="Platform 5" parent="Platforms" instance=ExtResource("3_wrm1d")]
 position = Vector2(971, -165)
@@ -3780,7 +3789,7 @@ position = Vector2(770, 3)
 libraries = {
 &"": SubResource("AnimationLibrary_1l0tm")
 }
-autoplay = "Death..."
+autoplay = "MoveUp"
 
 [node name="Coins" type="Node" parent="."]
 
@@ -3799,31 +3808,15 @@ position = Vector2(378, -30)
 [node name="Coin5" parent="Coins" instance=ExtResource("4_3dryh")]
 position = Vector2(665, -28)
 
-[node name="FakeCoin" parent="Coins" instance=ExtResource("4_3dryh")]
+[node name="FakeCoin2" parent="Coins" instance=ExtResource("7_mg4q0")]
+position = Vector2(178, 14)
+
+[node name="FakeCoin3" parent="Coins" instance=ExtResource("7_mg4q0")]
 position = Vector2(970, -186)
-script = ExtResource("5_h4fw4")
 
-[node name="Timer" type="Timer" parent="Coins/FakeCoin"]
-wait_time = 0.6
-one_shot = true
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Coins/FakeCoin"]
-shape = SubResource("CircleShape2D_h4fw4")
-
-[node name="FakeCoin2" parent="Coins" instance=ExtResource("4_3dryh")]
-position = Vector2(176, 11)
-script = ExtResource("5_h4fw4")
-
-[node name="Timer" type="Timer" parent="Coins/FakeCoin2"]
-wait_time = 0.6
-one_shot = true
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Coins/FakeCoin2"]
-shape = SubResource("CircleShape2D_h4fw4")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="ScoreText" type="Label" parent="CanvasLayer"]
+[node name="ScoreText" type="Label" parent="CanvasLayer2"]
 z_index = 6
 anchors_preset = -1
 anchor_top = -0.0138889
@@ -3838,7 +3831,7 @@ theme_override_font_sizes/font_size = 32
 text = "Score: 0"
 metadata/_edit_use_anchors_ = true
 
-[node name="DeathText" type="Label" parent="CanvasLayer"]
+[node name="DeathText" type="Label" parent="CanvasLayer2"]
 visible = false
 offset_right = 40.0
 offset_bottom = 23.0
@@ -3908,6 +3901,4 @@ shape = SubResource("RectangleShape2D_vm72l")
 
 [connection signal="body_entered" from="Platforms/Platform 3/Fall trigger" to="Platforms/Platform 3/Fall trigger" method="_on_body_entered"]
 [connection signal="body_entered" from="Platforms/Platform 3/Fall trigger" to="Coins/Coin" method="_on_fall_trigger_body_entered"]
-[connection signal="timeout" from="Coins/FakeCoin/Timer" to="Coins/FakeCoin" method="_on_timer_timeout"]
-[connection signal="timeout" from="Coins/FakeCoin2/Timer" to="Coins/FakeCoin2" method="_on_timer_timeout"]
 [connection signal="timeout" from="Killzone/Timer2" to="Killzone" method="_on_timer_2_timeout"]

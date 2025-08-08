@@ -2,7 +2,7 @@ extends Area2D
 
 @onready var timer: Timer = $Timer
 @onready var death_text: Label
-
+@onready var animation_player = $AnimationPlayer
 
 func _ready() -> void:
 	await get_tree().process_frame
@@ -10,6 +10,10 @@ func _ready() -> void:
 	print("DeathText found:", death_text)
 
 func _on_body_entered(body: Node2D) -> void:
+	var anim = get_node_or_null("AnimationPlayer")
+	if anim:
+		anim.play("pickup") 
+
 	if death_text:
 		death_text.visible = true
 		var screen_size = get_viewport_rect().size
